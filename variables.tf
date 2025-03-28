@@ -25,6 +25,6 @@ variable "aws_access_key" {
 
 variable "ssh_ip" {
   description = "My IP to SSH"
-  default     =""
+  type = string
 }
 
