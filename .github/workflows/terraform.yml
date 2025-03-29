@@ -1,27 +1,29 @@
-name: "Terraform EC2 Deployment"
+name: "Test AWS OIDC Connection"
 
 on:
   push:
     branches: ["main"]
+  workflow_dispatch: # Allows manual triggering
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read # Required for checkout
 
 jobs:
-  deploy:
+  test-connection:
     runs-on: ubuntu-latest
-    environment: ec2
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          role-skip-session-tagging: true
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }} # Your IAM role ARN
+          aws-region: ${{ secrets.AWS_REGION }} # e.g., us-east-1
 
-      - name: Verify AWS Credentials
-        run: aws sts get-caller-identity
-
-        # Added AWS Region as a secret
+      - name: Verify AWS access
+        run: |
+          echo "Testing OIDC connection..."
+          aws sts get-caller-identity
+          echo "Success! AWS credentials are working."
