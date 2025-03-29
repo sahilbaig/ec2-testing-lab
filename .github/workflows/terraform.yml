@@ -18,4 +18,4 @@ jobs:
         env:
           NOT_SECRET_KEY: ${{ secrets.NOT_SECRET_KEY }}
         run: |
-          echo "NOT_SECRET_KEY=${{ secrets.NOT_SECRET_KEY }}"
+          env | sort
