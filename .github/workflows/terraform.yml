@@ -27,6 +27,17 @@ jobs:
         run: terraform plan
         env:
           TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           TF_VAR_aws_region: "us-east-1"
           TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+
+          # AWS_ACCESS_KEY_ID
+# ec2
+# 1 hour ago
+# AWS_SECRET_KEY
+# ec2
+# 1 hour ago
+# NOT_SECRET_KEY
+# ec2
+# 36 minutes ago
+# SSH_IP
