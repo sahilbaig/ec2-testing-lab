@@ -6,8 +6,6 @@ on:
   pull_request:
 
 env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
   AWS_REGION: "us-east-1"
   TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
 
@@ -34,4 +32,3 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
-# Testing again
