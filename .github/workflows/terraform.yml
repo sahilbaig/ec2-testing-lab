@@ -17,27 +17,15 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        env:
-          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          TF_VAR_aws_region: "us-east-1"
-          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
-        run: |
-          terraform init
+        run: terraform init
 
-      - name: Terraform Plan
-        env:
-          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          TF_VAR_aws_region: "us-east-1"
-          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
-        run: terraform plan
+      # - name: Terraform Plan
+      #   env:
+      #     TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+      #   run: terraform plan
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        env:
-          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          TF_VAR_aws_region: "us-east-1"
-          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
-        run: terraform apply -auto-approve
+      # - name: Terraform Apply
+      #   if: github.ref == 'refs/heads/main'
+      #   env:
+      #     TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+      #   run: terraform apply -auto-approve
