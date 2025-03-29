@@ -9,6 +9,7 @@ env:
   AWS_REGION: "us-east-1"
   custom-var: "jsut a custom var"
   TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+  NOT_SECRET_KEY: ${{ secrets.NOT_SECRET_KEY }}
 
 jobs:
   deploy:
@@ -18,5 +19,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: List Env vars
-        run: echo "${{ secrets.NOT_SECRET_KEY }}"
+      - name: Debug Secrets
+        run: |
+          if [[ -z "${NOT_SECRET_KEY}" ]]; then
+            echo "❌ NOT_SECRET_KEY is EMPTY or NOT SET!"
+          else
+            echo "✅ NOT_SECRET_KEY is SET!"
+          fi
+        env:
+          NOT_SECRET_KEY: ${{ secrets.NOT_SECRET_KEY }}
+
+      - name: Debug SSH_IP
+        run: |
+          if [[ -z "${TF_VAR_ssh_ip}" ]]; then
+            echo "❌ SSH_IP is EMPTY or NOT SET!"
+          else
+            echo "✅ SSH_IP is SET!"
+          fi
+        env:
+          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
