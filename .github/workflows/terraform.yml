@@ -17,9 +17,4 @@ jobs:
         env:
           NOT_SECRET_KEY: ${{ secrets.NOT_SECRET_KEY }}
         run: |
-          if [[ -z "${NOT_SECRET_KEY}" ]]; then
-            echo "❌ NOT_SECRET_KEY is EMPTY or NOT SET!"
-          else
-            echo "✅ NOT_SECRET_KEY is SET!"
-            echo "Value: $NOT_SECRET_KEY"
-          fi
+          echo "NOT_SECRET_KEY=${{ secrets.NOT_SECRET_KEY }}"
