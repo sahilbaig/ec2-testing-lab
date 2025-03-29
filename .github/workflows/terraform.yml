@@ -3,7 +3,7 @@ name: "Terraform EC2 Deployment"
 on:
   push:
     branches: ["main"]
-  pull_request:
+
   workflow_dispatch: # ✅ Adds a manual trigger
 
 jobs:
