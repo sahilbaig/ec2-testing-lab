@@ -28,4 +28,3 @@ jobs:
         run: |
           echo "Testing OIDC connection..."
           aws sts get-caller-identity
-          echo "Success! AWS credentials are working."
