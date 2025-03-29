@@ -17,23 +17,34 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        run: terraform init
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          TF_VAR_aws_region: "us-east-1"
+          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+        run: |
+          terraform init
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Verify AWS Credentials
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          AWS_REGION: us-east-1
-          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+        run: |
+          aws sts get-caller-identity
 
-          # AWS_ACCESS_KEY_ID
-# ec2
-# 1 hour ago
-# AWS_SECRET_KEY
-# ec2
-# 1 hour ago
-# NOT_SECRET_KEY
-# ec2
-# 36 minutes ago
-# SSH_IP
+      - name: Terraform Plan
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          TF_VAR_aws_region: "us-east-1"
+          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+        run: terraform plan
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          TF_VAR_aws_region: "us-east-1"
+          TF_VAR_ssh_ip: ${{ secrets.SSH_IP }}
+        run: terraform apply -auto-approve
