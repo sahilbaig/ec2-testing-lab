@@ -22,3 +22,5 @@ jobs:
 
       - name: Verify AWS Credentials
         run: aws sts get-caller-identity
+
+        # Added AWS Region as a secret
