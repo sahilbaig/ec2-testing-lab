@@ -6,6 +6,7 @@ on:
 jobs:
   test-connection:
     runs-on: ubuntu-latest
+    environment: ec2
     permissions:
       id-token: write # Required for OIDC
       contents: read
