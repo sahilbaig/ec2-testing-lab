@@ -9,10 +9,7 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
-  assume_role {
-    role_arn     = "arn:aws:iam::689118617003:role/GitHubActionsOIDC" # Replace with your actual Role ARN
-    session_name = "GitHubActionsSession"
-  }
+
 }
 
 resource "aws_instance" "app_server" {
