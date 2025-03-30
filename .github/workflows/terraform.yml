@@ -28,3 +28,6 @@ jobs:
         run: |
           echo "Testing OIDC connection..."
           aws sts get-caller-identity
+
+
+          # addign manual workflow disspatv
