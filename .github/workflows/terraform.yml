@@ -24,4 +24,4 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: Terraform init
-        run: init terraform
+        run: terrraform init
