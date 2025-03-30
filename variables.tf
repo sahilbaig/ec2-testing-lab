@@ -28,3 +28,14 @@ variable "ssh_ip" {
   type        = string
 }
 
+
+variable "environment" {
+  type    = string
+  default = "local"  # Default for local execution
+}
+
+variable "aws_role_arn" {
+  type    = string
+  default = "" # This is only used in GitHub Actions
+}
+
