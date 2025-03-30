@@ -6,11 +6,19 @@ on:
 jobs:
   test-connection:
     runs-on: ubuntu-latest
-    environment: ec2
+    permissions:
+      id-token: write # Required for OIDC
+      contents: read
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get OIDC Working
-        run: echo "hello"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::689118617003:oidc-provider/token.actions.githubusercontent.com # Replace with your Role ARN
+          aws-region: us-east-1 # Change if using a different AWS region
+
+      - name: Verify AWS Access
+        run: aws sts get-caller-identity
