@@ -1,13 +1,7 @@
 name: "Test AWS OIDC Connection"
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch: # Allows manual triggering
-
-permissions:
-  id-token: write # Required for OIDC
-  contents: read # Required for checkout
 
 jobs:
   test-connection:
@@ -17,17 +11,3 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Configure AWS credentials via OIDC
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }} # Your IAM role ARN
-          aws-region: ${{ secrets.AWS_REGION }} # e.g., us-east-1
-
-      - name: Verify AWS access
-        run: |
-          echo "Testing OIDC connection..."
-          aws sts get-caller-identity
-
-
-          # addign manual workflow disspatv
