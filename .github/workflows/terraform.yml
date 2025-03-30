@@ -27,11 +27,11 @@ jobs:
       - name: Verify AWS Access
         run: aws sts get-caller-identity
 
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v2
+      # - name: Install Terraform
+      #   uses: hashicorp/setup-terraform@v2
 
-      - name: Initialize Terraform
-        run: terraform init
+      # - name: Initialize Terraform
+      #   run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan -var="ssh_ip=${{ secrets.SSH_IP }}"
+      # - name: Terraform Plan
+      #   run: terraform plan -var="ssh_ip=${{ secrets.SSH_IP }}"
