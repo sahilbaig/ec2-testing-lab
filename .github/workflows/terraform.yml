@@ -34,4 +34,4 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: echo ${{ secrets.SSH_IP }}
+        run: terraform plan -var="ssh_ip=${{ secrets.SSH_IP }}"
