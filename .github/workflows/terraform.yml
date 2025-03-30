@@ -18,7 +18,10 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::689118617003:role/GitHubActionsOIDC # Replace with your Role ARN
-          aws-region: us-east-1 # Change if using a different AWS region
+          aws-region: us-east-1
 
       - name: Verify AWS Access
         run: aws sts get-caller-identity
+
+      - name: Terraform init
+        run: init terraform
