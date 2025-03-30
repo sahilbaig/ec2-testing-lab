@@ -30,7 +30,4 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform plan -var="ssh_ip=${{ secrets.SSH_IP }}
